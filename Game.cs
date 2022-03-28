@@ -51,6 +51,17 @@ namespace Squiddler.Server
                 throw e;
             }
         }
+        public Player GetPlayer(Guid guid)
+        {
+            try
+            {
+                return Players.First(p => p.GUID == guid);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ArgumentException(nameof(guid), "GUID not found");
+            }
+        }
         public Game(bool register = true, string? dictionary=null)
         {
             if (register)
@@ -87,7 +98,6 @@ namespace Squiddler.Server
                 StartingPlayer = NextPlayer(StartingPlayer);
                 SetupRound();
             }
-
         }
         private void StartGame()
         {

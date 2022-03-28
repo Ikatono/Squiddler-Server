@@ -94,9 +94,9 @@ namespace Squiddler
             {
 
             }
-            public void Add(int score, int frequency, string text)
+            public void Add(int score, int frequency, string text, string? filepath=null)
             {
-                Cards.AddRange(Enumerable.Repeat(new Card(score, frequency, text), frequency));
+                Cards.AddRange(Enumerable.Repeat(new Card(score, frequency, text, filepath), frequency));
             }
             public Deck MakeDeck()
             {
