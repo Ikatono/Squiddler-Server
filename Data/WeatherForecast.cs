@@ -1,4 +1,4 @@
-namespace squiddler_server.Data;
+namespace Squiddler.Server.Data;
 
 public class WeatherForecast
 {

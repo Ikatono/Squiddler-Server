@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using squiddler_server.Data;
+using Squiddler.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
