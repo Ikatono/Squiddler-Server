@@ -14,6 +14,10 @@ namespace Squiddler
         {
             Cards = cards.ToList().AsReadOnly();
         }
+        public int Score()
+        {
+            return Cards.Select(c => c.Score).Sum();
+        }
         public ReadOnlyCollection<Card> GetView()
         {
             return Cards;

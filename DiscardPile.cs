@@ -15,10 +15,11 @@ namespace Squiddler
         }
         public Card Pop()
         {
-            Card card = Cards[Cards.Count];
+            Card card = Cards[Cards.Count - 1];
+            //why did I do this? how would it throw?
             try
             {
-                Cards.RemoveAt(Cards.Count);
+                Cards.RemoveAt(Cards.Count - 1);
             }
             catch (ArgumentOutOfRangeException)
             {

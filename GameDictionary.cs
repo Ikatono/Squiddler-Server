@@ -1,5 +1,5 @@
 using System.Collections;
-
+using System.Collections.ObjectModel;
 namespace Squiddler.Server
 {
     public class GameDictionary : IReadOnlySet<string>
@@ -14,16 +14,16 @@ namespace Squiddler.Server
         }
         public void Load(string filename)
         {
-            foreach (string word in File.ReadLines(filename))
+            foreach (string word in File.ReadLines(filename).Select(FormatWord).Where(ValidateWord))
             {
-                Words.Add(FormatWord(word));
+                Words.Add(word);
             }
         }
         public void Load(IEnumerable<string> words)
         {
-            foreach (string word in words)
+            foreach (string word in words.Select(FormatWord).Where(ValidateWord))
             {
-                Words.Add(FormatWord(word));
+                Words.Add(word);
             }
         }
         public bool Contains(string word)
@@ -41,7 +41,18 @@ namespace Squiddler.Server
         {
             return word.Trim().ToUpper();
         }
-
+        public static bool ValidateWord(string word)
+        {
+            if (string.IsNullOrWhiteSpace(word))
+                return false;
+            if (!word.All(c => ValidCharacters.Contains(c)))
+                return false;
+            if (word.Length <= 1)
+                return false;
+            return true;
+        }
+        public readonly static ReadOnlyCollection<char> ValidCharacters
+            = new List<char>("ABCDEFGHIJKLMNOPQRSTUVWXYZ").AsReadOnly();
         public bool IsProperSubsetOf(IEnumerable<string> other)
         {
             return ((IReadOnlySet<string>)Words).IsProperSubsetOf(other);
